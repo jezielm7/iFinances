@@ -23,6 +23,7 @@ export const theme = {
     blue: '#5636D3',
     green: '#04d361',
     orange: '#FF872C',
+    red_light: 'rgba(232, 63, 91, 0.7)',
   },
   fonts: {
     regular: 'Poppins_400Regular',
