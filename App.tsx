@@ -10,7 +10,12 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import Home from './src/screens/Home';
+import { NavigationContainer } from '@react-navigation/native';
+
+import AppRouter from './src/routes/app.routes';
+
+import { ThemeProvider } from 'styled-components/native';
+import { theme } from './src/global/styles/theme';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,9 +29,11 @@ export default function App() {
   }
 
   return (
-    <>
-      <Home />
-      <StatusBar backgroundColor="#1d2542" />
-    </>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <AppRouter />
+        <StatusBar backgroundColor="#1d2542" />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 };
