@@ -32,7 +32,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <AppRouter />
-        <StatusBar backgroundColor="#1d2542" />
+        <StatusBar backgroundColor={theme.colors.primary} />
       </NavigationContainer>
     </ThemeProvider>
   );
