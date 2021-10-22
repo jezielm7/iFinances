@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HighlightCard from '../../components/HighlightCard';
 
@@ -22,44 +23,54 @@ import {
   Title,
   TransactionsList,
 } from './styles';
+import { Transaction } from '../Register/types';
+import { useFocusEffect } from '@react-navigation/native';
 
 export interface DataListProps extends TransactionCardProps {
   id: string;
 }
 
 function Home() {
-  const data = [
-    {
-      id: '1',
-      title: "Feira do mercado",
-      amount: "R$350,00",
-      date: "20/10/2021",
-      category: {
-        name: 'Compras',
-        icon: 'shopping-bag',
-      },
-    },
-    {
-      id: '2',
-      title: "Hamburgueria",
-      amount: "R$50,00",
-      date: "20/10/2021",
-      category: {
-        name: 'Alimentação',
-        icon: 'coffee',
-      },
-    },
-    {
-      id: '3',
-      title: "Aluguel do apartamento",
-      amount: "R$700,00",
-      date: "20/10/2021",
-      category: {
-        name: 'Casa',
-        icon: 'home',
-      },
-    },
-  ];
+  const [data, setData] = useState<DataListProps[]>([]);
+
+  async function loadTransactions() {
+    const dataKey = '@iFinances:transactions';
+    const response = await AsyncStorage.getItem(dataKey);
+
+    const transactions = response ? JSON.parse(response) : [];
+
+    const transactionsFormatted: DataListProps[] = transactions
+      .map((item: DataListProps) => {
+        const amount = Number(item.amount).toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        });
+
+        const date = Intl.DateTimeFormat('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: '2-digit'
+        }).format(new Date(item.date));
+
+        return {
+          id: item.id,
+          name: item.name,
+          amount,
+          category: item.category,
+          date,
+        }
+      });
+
+    setData(transactionsFormatted);
+  }
+
+  useEffect(() => {
+    loadTransactions();
+  }, []);
+
+  useFocusEffect(useCallback(() => {
+    loadTransactions();
+  }, []));
 
   return (
     <Container>
