@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Modal } from 'react-native';
 
+import uuid from 'react-native-uuid';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,8 +34,6 @@ function Register() {
     name: 'Categoria',
   });
 
-  const dataKey = '@iFinances:transactions';
-
   function handleOpenModal() {
     setOpenModal(true);
   };
@@ -45,11 +44,14 @@ function Register() {
 
   async function handleRegister() {
     const newTransaction = {
+      id: String(uuid.v4()),
       name,
       amount,
       category: category.key,
       date: new Date(),
     }
+
+    const dataKey = '@iFinances:transactions';
 
     try {
       const data = await AsyncStorage.getItem(dataKey);
@@ -77,6 +79,16 @@ function Register() {
       Alert.alert('Não foi possível registrar!');
     }
   }
+
+  // useEffect(() => {
+  //   async function removeAll() {
+  //     const dataKey = '@iFinances:transactions';
+  //     const data = await AsyncStorage.removeItem(dataKey);
+  //     console.log(data);
+  //   }
+
+  //   removeAll();
+  // }, []);
 
   return (
     <Container>
