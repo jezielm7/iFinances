@@ -3,16 +3,6 @@ export const theme = {
     primary: '#1d2542',
     background: '#F0F2F5',
 
-    secondary100: '#0D1033',
-    secondary90: '#0D133D',
-    secondary80: '#0D1647',
-    secondary75: '#171F52',
-    secondary70: '#1B2565',
-    secondary60: '#1B2565',
-    secondary50: '#243189',
-    secondary40: '#1D2766',
-    secondary30: '#495BCC',
-
     overlay: 'rgba(0,0,0,0.7)',
     highlight: '#ABB1CC',
     heading: '#DDE3F0',
