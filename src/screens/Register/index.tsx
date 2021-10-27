@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Modal } from 'react-native';
 
 import uuid from 'react-native-uuid';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Categories from '../Categories';
@@ -11,8 +11,6 @@ import Input from '../../components/Form/Input';
 import Button from '../../components/Form/Button';
 import CategorySelect from '../../components/Form/CategorySelect';
 
-import { Transaction } from './types';
-
 import {
   Container,
   Header,
@@ -20,11 +18,12 @@ import {
   Form,
   Fields,
 } from './styles';
+import { DataListProps } from '../Home';
 
 function Register() {
+  const { params } = useRoute();
   const { navigate } = useNavigation();
 
-  const [data, setData] = useState<Transaction[]>([]);
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
 
@@ -56,13 +55,21 @@ function Register() {
     try {
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
+      console.log('CurData:', currentData);
 
-      const dataFormatted = [
-        ...currentData,
-        newTransaction,
-      ];
+      const findIndex = currentData.findIndex((item: DataListProps) => item.id === params?.id);
+      console.log('FindIndex:', findIndex);
 
-      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted));
+      if (findIndex >= 0) {
+        currentData[findIndex] = newTransaction;
+        await AsyncStorage.setItem(dataKey, JSON.stringify(currentData));
+      } else {
+        const formattedData = [
+          ...currentData,
+          newTransaction,
+        ];
+        await AsyncStorage.setItem(dataKey, JSON.stringify(formattedData));
+      }
 
       setName('');
       setAmount('');
@@ -107,6 +114,7 @@ function Register() {
           <Input
             value={amount}
             placeholder="Preço"
+            keyboardType="number-pad"
             onChangeText={(text) => setAmount(text)}
           />
 
