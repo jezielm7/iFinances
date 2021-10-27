@@ -14,12 +14,14 @@ import {
   Poppins_700Bold,
 } from '@expo-google-fonts/poppins';
 
-import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from 'styled-components/native';
+import { AuthProvider } from './src/hooks/auth';
+
+import { theme } from './src/global/styles/theme';
 
 import AppRouter from './src/routes/app.routes';
 
-import { ThemeProvider } from 'styled-components/native';
-import { theme } from './src/global/styles/theme';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -34,9 +36,14 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.colors.primary}
+      />
       <NavigationContainer>
-        <AppRouter />
-        <StatusBar backgroundColor={theme.colors.primary} />
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );
