@@ -32,9 +32,7 @@ function HighlightCard({ title, amount, last_transaction, type }: HighlightCardP
 
       <Footer>
         <Amount>{amount}</Amount>
-        <LastTransaction type={type}>
-          Última Saída dia {last_transaction}
-        </LastTransaction>
+        <LastTransaction type={type}>{last_transaction}</LastTransaction>
       </Footer>
     </Container>
   );

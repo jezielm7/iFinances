@@ -9,7 +9,7 @@ interface TypeProps {
 }
 
 export const Container = styled.View<TypeProps>`
-  width: ${RFValue(300)}px;
+  width: ${RFValue(350)}px;
   margin-right: ${RFValue(16)}px;
   
   border-radius: 6px;
