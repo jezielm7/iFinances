@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../screens/Home';
 import Register from '../screens/Register';
+import Dashboard from '../screens/Dashboard';
 
 import { theme } from '../global/styles/theme';
 
@@ -55,7 +56,7 @@ function AppRouter() {
 
       <Screen
         name="Resumo"
-        component={Register}
+        component={Dashboard}
         options={{
           tabBarIcon: (({ size, color }) => (
             <MaterialIcons
