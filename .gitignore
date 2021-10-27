@@ -55,5 +55,5 @@ buck-out/
 web-build/
 
 # Env
-.env
-.env.example
+# .env
+# .env.example
