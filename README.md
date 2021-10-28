@@ -2,7 +2,7 @@
 
 ### O desafio consiste em um app (CRUD) para despesas pessoais.
 
-### > Design baseado no goFinances.
+### > Design baseado no [goFinances](https://www.figma.com/file/WMja4dR2gLozylanSSDM4c/GoFinances-Ignite).
 
 ## 👨‍💻 Tecnologias Utilizadas
 
