@@ -1,6 +1,6 @@
 # iFinances
 
-### O app consiste em um CRUD para despesas pessoais.
+### O app consiste em um sistema de Gerenciamento para despesas pessoais.
 
 ### > Design baseado no [goFinances](https://www.figma.com/file/WMja4dR2gLozylanSSDM4c/GoFinances-Ignite).
 
